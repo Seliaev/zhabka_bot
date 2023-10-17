@@ -27,13 +27,14 @@ class Middleware(BaseMiddleware):
         :type data: Dict
         """
         await handler(event, data)
-        if event.chat.id == settings.bots.id_admin:
-            if isinstance(event, Message) and event.text == '/updpic':
-                if await async_wrapper_parser():
-                    await event.bot.send_message(chat_id=event.chat.id, text='Успешно, картинки обновлены')
-                else:
-                    await event.bot.send_message(chat_id=event.chat.id,
-                                                 text='Картинки не обновлены, возможно проблема с парсером')
+        if isinstance(event, Message) and event.text == '/updpic':
+            if await async_wrapper_parser():
+                await event.bot.send_message(chat_id=event.chat.id, text='Успешно, картинки обновлены')
+            else:
+                await event.bot.send_message(chat_id=event.chat.id,
+                                             text='Картинки не обновлены, возможно проблема с парсером')
 
-            if isinstance(event, Message) and event.text == '/restart':
+        if isinstance(event, Message) and event.text == '/restart':
+            if event.chat.id == settings.bots.id_admin:
                 restart_script()
+
