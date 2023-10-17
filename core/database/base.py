@@ -36,7 +36,7 @@ users = Table(
 schedules = Table(
     'schedules',
     metadata,
-    Column('chat_id', BigInteger, primary_key=True, nullable=False), # Уникальный идентификатор чата с пользователем телеграм
+    Column('chat_id', BigInteger, primary_key=False, nullable=False), # Идентификатор чата с пользователем телеграм
     Column('user_id', Integer, ForeignKey('users.user_id'), nullable=False), # Связка с таблицей users  на user_id
     Column('scheduled_time', TIME, nullable=False), # Время рассылки. Функция назначения времени пока не готово. Задел на будущее
 )

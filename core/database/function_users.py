@@ -68,10 +68,9 @@ async def update_subscribe_status(user_id: int, new_subscribe_status: bool) -> T
     :type new_subscribe_status: bool
     """
     try:
-        check_user = await check_user_id_in_db(user_id)
-        print(new_subscribe_status, user_id)
-        if check_user:
-            async with engine.begin() as conn:
+        #check_user = await check_user_id_in_db(user_id)
+       # print(new_subscribe_status, user_id)
+        async with engine.begin() as conn:
                 query = (
                     users.update()
                     .where(users.c.user_id == user_id)

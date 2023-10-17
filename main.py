@@ -67,13 +67,18 @@ async def handle_bot_operations() -> None:
     # Шедулер на отправку сообщений по таймеру.
     scheduler = AsyncIOScheduler()
     result_sub_times = await get_all_time_data()
-    for user_data_time in result_sub_times:
-        chat_id = user_data_time['chat_id']
-        scheduled_time = user_data_time['scheduled_time']
-        # hour=scheduled_time.hour, minute=scheduled_time.minute
-        scheduler.add_job(send_zhabka_subscriber, "cron", hour=21, minute=15,
-                          args=(bot, chat_id))
-
+    if result_sub_times == None:
+        chat_id = settings.bots.id_admin
+        hour = 0
+        minute = 0
+    else:
+        for user_data_time in result_sub_times:
+            chat_id = user_data_time['chat_id']
+            scheduled_time = user_data_time['scheduled_time']
+            hour = scheduled_time.hour
+            minute = scheduled_time.minute
+    scheduler.add_job(send_zhabka_subscriber, "cron", hour=hour, minute=minute,
+                              args=(bot, chat_id))
     try:
         scheduler.start()
         await dp.start_polling(bot, skip_updates=True)
