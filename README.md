@@ -19,6 +19,7 @@ Before running the project, make sure you have the following dependencies instal
 - SQLAlchemy
 - asyncpg
 - fake-headers (this is necessary if you need fake handlers. in core.parser.pic_parser.py)
+- apscheduler
 
 
 ## Installation and Usage
