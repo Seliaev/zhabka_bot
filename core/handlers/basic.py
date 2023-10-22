@@ -59,34 +59,28 @@ async def get_help(message: Message) -> None:
 
 async def get_zhabka(message: Message) -> None:
     """
-    Отправляет пользователю случайное изображение жабы (кроме среды) по команде /get_zhabka, если он подписан.
+    Отправляет пользователю случайное изображение жабы (кроме среды) по команде /get_zhabka.
 
     :param message: Объект сообщения пользователя.
     :type message: Message
     """
-    id_user = message.from_user.id
-    result_data = await get_data_from_user_id(id_user)
-    if result_data['subscribe']:
-        path_to_zhabka = get_random_image('wednesday')
-        if path_to_zhabka == "":
-            await message.answer(f'Жабки кончились, подожди пару минут, я их поймаю.\nЧерез пару минут снова отправь команду.')
-            await async_wrapper_parser() # Парсит картинки в случае отсутствия
-        elif today_is_wednesday() and path_to_zhabka != '':
-            image_from_pc = FSInputFile(path_to_zhabka)
-            await message.answer_photo(
-                image_from_pc
-            )
-            delete_file(path_to_zhabka)
-        else:
-            path_to_zhabka = get_random_image('no_wednesday')
-            image_from_pc = FSInputFile(path_to_zhabka)
-            await message.answer_photo(
-                image_from_pc
-            )
-            await message.answer(f'! Сегодня не среда !\n! Будь  бдительней !')
+    path_to_zhabka = get_random_image('wednesday')
+    if path_to_zhabka == "":
+        await message.answer(f'Жабки кончились, подожди пару минут, я их поймаю.\nЧерез пару минут снова отправь команду.')
+        await async_wrapper_parser() # Парсит картинки в случае отсутствия
+    elif today_is_wednesday() and path_to_zhabka != '':
+        image_from_pc = FSInputFile(path_to_zhabka)
+        await message.answer_photo(
+            image_from_pc
+        )
+        delete_file(path_to_zhabka)
     else:
-        await message.answer(f'Для чего вам картинка с жабой, если вы не подписаны?\n'
-                             f'Все о подписке - /help')
+        path_to_zhabka = get_random_image('no_wednesday')
+        image_from_pc = FSInputFile(path_to_zhabka)
+        await message.answer_photo(
+            image_from_pc
+        )
+        await message.answer(f'! Сегодня не среда !\n! Будь  бдительней !')
 
 
 async def change_subscribe(message: Message) -> None:
