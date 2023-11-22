@@ -34,6 +34,8 @@
 DATABASE_URL = 'postgresql+asyncpg://username:password@localhost/database'
 
 
+Запущенный бот: [@dude_is_wednesday_bot](https://t.me/dude_is_wednesday_bot)
+
 
 
 
@@ -73,3 +75,6 @@ Before running the project, make sure you have the following dependencies instal
 
 # Database settings
 DATABASE_URL = 'postgresql+asyncpg://username:password@localhost/database'
+
+
+Running bot: [@dude_is_wednesday_bot](https://t.me/dude_is_wednesday_bot)
